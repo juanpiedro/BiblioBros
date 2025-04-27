@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiblioBros - Subject</title>
+
+    <!-- Link to the main stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <!-- BiblioBros Logo or Title -->
+        <h1>BiblioBros</h1>
+
+        <!-- Navigation Menu -->
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Home</a></li>
+                <li><a href="chat.html">Chats</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#">Logout</a></li> <!-- Logout functionality will be added later -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- Subject Name -->
+        <section>
+            <h2>Algebra I</h2> <!-- TODO: Load dynamically based on selected subject -->
+        </section>
+
+        <!-- First-time Role Selection -->
+        <section>
+            <h3>Select Your Role</h3>
+            <!-- TODO: Show this only if user has not selected a role yet -->
+            <button type="button">Become a Mentor</button>
+            <button type="button">Become a Mentee</button>
+        </section>
+
+        <!-- Tabs Navigation -->
+        <section>
+            <nav>
+                <button type="button">Find Mentors</button>
+                <button type="button">Requests</button>
+                <button type="button">Messages</button>
+            </nav>
+        </section>
+
+        <!-- Tabs Content Area -->
+
+        <!-- FIND MENTORS TAB -->
+        <section>
+            <h3>Available Mentors</h3>
+
+            <!-- Example list of mentors -->
+            <!-- TODO: Load this list dynamically from database in the future -->
+            <ul>
+                <li>
+                    <strong>Maria Lopez</strong> (University of Rome) <br>
+                    "I can help you understand the basics of Algebra." <br>
+                    Rating: ⭐⭐⭐⭐☆ (4.8/5) <br>
+                    <button type="button">Request Help</button>
+                </li>
+                <li>
+                    <strong>Luca Bianchi</strong> (University of Milan) <br>
+                    "Algebra made simple with practice." <br>
+                    Rating: ⭐⭐⭐⭐⭐ (5.0/5) <br>
+                    <button type="button">Request Help</button>
+                </li>
+            </ul>
+        </section>
+
+        <!-- REQUESTS TAB -->
+        <section>
+            <h3>Requests Received</h3>
+
+            <!-- Example list of requests for Mentors -->
+            <!-- TODO: Load this list dynamically from database in the future -->
+            <ul>
+                <li>
+                    Request from Anna Rossi <br>
+                    <button type="button">Accept</button>
+                    <button type="button">Reject</button>
+                </li>
+                <li>
+                    Request from Marco De Luca <br>
+                    <button type="button">Accept</button>
+                    <button type="button">Reject</button>
+                </li>
+            </ul>
+        </section>
+
+        <!-- MESSAGES TAB -->
+        <section>
+            <h3>Active Conversations</h3>
+
+            <!-- Example list of active chats -->
+            <!-- TODO: Connect this to the chat system later -->
+            <ul>
+                <li>
+                    Chat with Anna Rossi <a href="chat.html"><button type="button">Open Chat</button></a>
+                </li>
+                <li>
+                    Chat with Marco De Luca <a href="chat.html"><button type="button">Open Chat</button></a>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <!-- Contact Information and Developer Credits -->
+        <p>Contact: contact@bibliobros.com</p>
+        <p>Developed by: [Your Name] and the BiblioBros team</p>
+    </footer>
+
+</body>
+</html>

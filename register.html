@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiblioBros - Register</title>
+
+    <!-- Link to the main stylesheet (empty for now) -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <!-- Project logo or main title -->
+        <h1>BiblioBros</h1>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- Registration Form Section -->
+        <section>
+            <h2>Create your account</h2>
+
+            <!-- Registration form (no action yet, functionality will be added later) -->
+            <form method="post">
+                
+                <!-- Full Name Input -->
+                <div>
+                    <label for="fullname">Full Name:</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+
+                <!-- Email Address Input -->
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <!-- Password Input -->
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <!-- University Selection -->
+                <div>
+                    <label for="university">Select your University:</label>
+                    <select id="university" name="university" required>
+                        <option value="">--Please choose an option--</option>
+                        <option value="university1">University 1</option>
+                        <option value="university2">University 2</option>
+                        <option value="university3">University 3</option>
+                        <!-- More options will be added later -->
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit">Register</button>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <!-- Contact information and credits -->
+        <p>Contact: contact@bibliobros.com</p>
+        <p>Developed by: [Your Name] and the BiblioBros team</p>
+    </footer>
+
+</body>
+</html>
