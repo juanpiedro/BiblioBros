@@ -14,7 +14,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BiblioBros - Subject Role Selection</title>
+  <title>BiblioBros - Become a Mentor</title>
 
 
 </head>
@@ -43,29 +43,20 @@
       <h2>Algebra I</h2> <!-- TODO: Load subject name dynamically -->
     </section>
 
-    <!-- Role Selection -->
+    <!-- Introductory Message Form -->
     <section>
-      <h3>Choose your role in this subject</h3>
+      <h3>Write your introductory message</h3>
 
-      <!-- Mentor Option -->
-      <div>
-        <p><strong>Mentor</strong></p>
-        <p>Select this if you want to help others succeed in this subject.</p>
-        <a href="subject_mentor_intro.html">
-          <button type="button">Become a Mentor</button>
+      <!-- This form is mandatory to complete the mentor role registration -->
+      <!-- TODO: Save message to database and redirect to subject_mentor.html -->
+      <form>
+        <label for="intro-message">Describe how you will help mentees in this subject:</label><br/>
+        <textarea id="intro-message" name="intro-message" rows="5" cols="60" required></textarea><br/>
+        <br/>
+        <a href="subject_mentor.html">
+          <button type="button">Continue</button>
         </a>
-      </div>
-      <br/>
-
-      <!-- Mentee Option -->
-      <div>
-        <p><strong>Mentee</strong></p>
-        <p>Select this if you need support to understand the subject.</p>
-        <a href="subject_mentee.html">
-          <button type="button">Become a Mentee</button>
-        </a>
-      </div>
-
+      </form>
     </section>
 
   </main>

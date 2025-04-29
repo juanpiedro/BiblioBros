@@ -14,7 +14,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BiblioBros - Register</title>
+  <title>BiblioBros - Login</title>
 
 
 </head>
@@ -28,7 +28,7 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
       </ul>
     </nav>
   </header>
@@ -36,19 +36,17 @@
   <!-- MAIN CONTENT -->
   <main>
 
-    <!-- Registration Form Section -->
+    <!-- Login Form Section -->
     <section>
-      <h2>Create your account</h2>
+      <h2>Login to Your Account</h2>
 
-      <!-- Registration form (no action yet) -->
+      <!-- Placeholder for error messages -->
+      <div id="error-message" role="alert" aria-live="assertive">
+        <!-- TODO: Display login errors here -->
+      </div>
+
+      <!-- Login form (no real action yet) -->
       <form method="post">
-        <!-- Full Name Input -->
-        <div>
-          <label for="fullname">Full Name:</label><br/>
-          <input type="text" id="fullname" name="fullname" required>
-        </div>
-        <br/>
-
         <!-- Email Address Input -->
         <div>
           <label for="email">Email Address:</label><br/>
@@ -63,28 +61,21 @@
         </div>
         <br/>
 
-        <!-- University Selection -->
-        <div>
-          <label for="university">Select your University:</label><br/>
-          <select id="university" name="university" required>
-            <option value="">--Please choose an option--</option>
-            <option value="university1">University 1</option>
-            <option value="university2">University 2</option>
-            <option value="university3">University 3</option>
-            <!-- More options will be added later -->
-          </select>
-        </div>
-        <br/>
-
         <!-- Submit Button -->
         <div>
-          <button type="submit">Register</button>
+          <button type="submit">Login</button>
         </div>
+
+        <!-- Forgot Password Link -->
+        <p>
+          <a href="#">Forgot your password?</a>
+        </p>
+
       </form>
 
-      <!-- Link to login if already have an account -->
+      <!-- Link to registration if no account -->
       <p>
-        Already have an account? <a href="login.html">Login here</a>.
+        Don't have an account? <a href="register.html">Register here</a>.
       </p>
     </section>
 

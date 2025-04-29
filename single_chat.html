@@ -14,7 +14,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BiblioBros - Subject Role Selection</title>
+  <title>BiblioBros - Single Chat</title>
 
 
 </head>
@@ -38,34 +38,32 @@
   <!-- MAIN CONTENT -->
   <main>
 
-    <!-- Subject Name -->
+    <!-- Chat Header -->
     <section>
-      <h2>Algebra I</h2> <!-- TODO: Load subject name dynamically -->
+      <h2>Chat with Maria Lopez (Algebra I)</h2> <!-- TODO: Load chat participant and subject dynamically -->
     </section>
 
-    <!-- Role Selection -->
+    <!-- Messages History -->
     <section>
-      <h3>Choose your role in this subject</h3>
+      <h3>Messages</h3>
 
-      <!-- Mentor Option -->
+      <!-- TODO: Load message history dynamically from database -->
       <div>
-        <p><strong>Mentor</strong></p>
-        <p>Select this if you want to help others succeed in this subject.</p>
-        <a href="subject_mentor_intro.html">
-          <button type="button">Become a Mentor</button>
-        </a>
+        <p><strong>Maria Lopez:</strong> Hi! I can help you with today's topic.</p>
+        <p><strong>You:</strong> Thank you! I am struggling with linear equations.</p>
+        <p><strong>Maria Lopez:</strong> No problem, let's start from the basics.</p>
       </div>
-      <br/>
+    </section>
 
-      <!-- Mentee Option -->
-      <div>
-        <p><strong>Mentee</strong></p>
-        <p>Select this if you need support to understand the subject.</p>
-        <a href="subject_mentee.html">
-          <button type="button">Become a Mentee</button>
-        </a>
-      </div>
+    <!-- Send New Message -->
+    <section>
+      <h3>Send a New Message</h3>
 
+      <!-- TODO: Implement message sending functionality with AJAX/PHP -->
+      <form>
+        <textarea id="new-message" name="new-message" rows="4" cols="50" placeholder="Write your message here..." required></textarea><br/>
+        <button type="submit">Send</button>
+      </form>
     </section>
 
   </main>
