@@ -1,72 +1,240 @@
-/* Global Styles */
-body {
-  font-family: Arial, sans-serif;
+/* 1) Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* 2) Variables de color (base) */
+:root {
+  --color-bg: #fffdf5;           /* Fondo general */
+  --color-primary: #0C1E3C;      /* Navy Blue (navbar, .btn-primary) */
+  --color-secondary: #F57C00;    /* Vibrant Orange (btn-secondary) */
+  --color-accent: #E6E8EB;       /* Light Gray (para acentos sutiles) */
+  --color-text: #1A1A1A;         /* Charcoal (texto principal) */
+}
+
+/* 3) Reset box-sizing y márgenes/paddings */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
 }
 
-/* Header */
-header {
-  background-color: #004080;
-  color: white;
-  padding: 20px;
-  text-align: center;
+/* 4) Layout full-height para sticky footer */
+html, body {
+  height: 100%;
 }
-
-/* Navigation Menu */
-nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 10px 0 0 0;
+body {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
 }
-
-nav ul li {
-  display: inline;
-}
-
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* Main Content */
 main {
-  padding: 20px;
+  flex: 1 0 auto; /* empuja el footer al fondo */
 }
 
-/* Sections inside Main */
-main section {
-  background-color: white;
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+/* 5) Navbar (fija navy blue + links blancos) */
+.navbar {
+  background-color: var(--color-primary) !important;
+  transition: top 0.3s ease;
+}
+.navbar-brand,
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+}
+.nav-link:hover {
+  color: var(--color-accent) !important; /* light gray al hover */
 }
 
-/* Buttons */
-button {
-  padding: 10px 20px;
-  background-color: #0066cc;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #004d99;
-}
-
-/* Footer */
+/* 6) Footer (siempre abajo, navy + texto blanco) */
 footer {
-  background-color: #222;
-  color: white;
+  flex-shrink: 0;
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 1rem 0;
   text-align: center;
-  padding: 15px;
-  font-size: 14px;
 }
+
+/* 7) Títulos de sección (subrayado naval) */
+.section-title {
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 0.5rem;
+  margin: 1.5rem 0 1rem;
+  color: var(--color-primary);
+}
+
+/* 8) Cards genéricas */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* 9) Estilo global de botones */
+button,
+.btn {
+  margin-top: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  border-radius: 0.4rem;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  font-weight: 500;
+}
+
+/* 9.1) PRIMARY BUTTON = NAVY */
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: #fff !important;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #08132a !important;  /* un poco más oscuro */
+  border-color: #08132a !important;
+}
+
+/* 9.2) SECONDARY BUTTON = ORANGE */
+.btn-secondary {
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color: #fff !important;
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: #d45300 !important;  /* un poco más oscuro */
+  border-color: #d45300 !important;
+}
+
+/* 9.3) Otros botones (warning, link…) los puedes ajustar similarmente */
+.btn-warning {
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-text) !important;
+}
+.btn-warning:hover {
+  filter: brightness(0.9);
+}
+
+/* 10) Formularios: tarjetas de login/register */
+.form-card {
+  max-width: 400px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  background-color: #fff;
+}
+.form-card:hover {
+  transform: none !important; /* sin movimiento al hover */
+}
+
+/* 11) Chats activos (estilo "burbuja WhatsApp") */
+.active-chats .chat-item {
+  background-color: #e1ffc7;
+  border-radius: 20px;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s;
+}
+.active-chats .chat-item:hover {
+  background-color: #d4fcb8;
+}
+.active-chats .chat-item .chat-info {
+  flex: 1;
+}
+.active-chats .chat-item .chat-name {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.active-chats .chat-item .chat-preview {
+  font-size: 0.875rem;
+  color: #555;
+}
+.active-chats .chat-item .chat-time {
+  font-size: 0.75rem;
+  color: #999;
+  margin-left: 0.5rem;
+}
+
+/* 12) Lista de chats / items laterales */
+.chat-list-item {
+  cursor: pointer;
+  transition: background-color .15s ease;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+.chat-list-item.active,
+.chat-list-item:hover {
+  background-color: rgba(5,30,60,0.1); /* navy semitransparente */
+}
+
+/* 13) Ventana de mensajes */
+.chat-header {
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+.chat-history {
+  background: #fafafa;
+  padding: 1rem;
+  border-radius: 8px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+.chat-history .text-start p {
+  display: inline-block;
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem 0.5rem 0.5rem 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.chat-history .text-end p {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem 0.5rem 0 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+
+/* ---------- HEADER & FOOTER NARANJA SOLO EN mentor-theme ---------- */
+body.mentor-theme .navbar,
+body.mentor-theme footer {
+  background-color: var(--color-secondary) !important;
+}
+
+/* Tamaño extra-grande del logo en el header */
+.site-logo {
+  height: 4rem;   /* 4rem ≈ 64px, ajústalo si lo quieres aún más grande */
+  width: auto;
+  display: block; /* asegura que no añada espacio extraño */
+}
+
+/* Si quieres separar la marca de los enlaces de nav: */
+.navbar-brand {
+  padding-left: 1rem; /* o el margen que necesites */
+}
+
+
+/* Tamaño del logo en el footer */
+.footer-logo {
+  height: 1.5rem; /* un poco más pequeño */
+  width: auto;
+}
+
+
+/* --------------------------------------------------------
+   FIN de style.css
+   -------------------------------------------------------- */
