@@ -24,9 +24,13 @@
     crossorigin="anonymous"
     defer
   ></script>
+  <script src="assets/js/register.js"></script>
+  <script src="assets/js/login.js"></script>
+
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
@@ -134,5 +138,56 @@
     <p>Contact: contact@bibliobros.com</p>
     <p>Developed by: [Your Name] and the BiblioBros team</p>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.querySelector('form');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const fullname = form.fullname.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const university = form.university.value;
+
+        // Проверка заполнения полей
+        if (!fullname || !email || !password || !university) {
+          alert('Заполните все поля!');
+          return;
+        }
+
+        // Проверка email
+        if (!email.includes('@')) {
+          alert('Введите корректный email!');
+          return;
+        }
+
+        // Проверка длины пароля
+        if (password.length < 6) {
+          alert('Пароль должен быть не менее 6 символов!');
+          return;
+        }
+
+        // Получаем текущих пользователей из LocalStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        // Проверяем, есть ли уже такой email
+        const userExists = users.some(user => user.email === email);
+        if (userExists) {
+          alert('Пользователь с таким email уже зарегистрирован!');
+          return;
+        }
+
+        // Добавляем нового пользователя
+        users.push({ fullname, email, password, university });
+
+        // Сохраняем в LocalStorage
+        localStorage.setItem('users', JSON.stringify(users));
+
+        alert('Регистрация прошла успешно!');
+        window.location.href = 'login.html'; // Перенаправляем на страницу входа
+      });
+    });
+  </script>
 </body>
 </html>

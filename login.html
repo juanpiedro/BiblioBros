@@ -118,5 +118,48 @@
     <p>Contact: contact@bibliobros.com</p>
     <p>Developed by: [Your Name] and the BiblioBros team</p>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.querySelector('form');
+      const errorMessage = document.getElementById('error-message');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = form.email.value;
+        const password = form.password.value;
+
+        // Проверка заполнения полей
+        if (!email || !password) {
+          showError('Заполните все поля!');
+          return;
+        }
+
+        // Получаем всех пользователей из LocalStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        // Ищем пользователя с таким email и паролем
+        const user = users.find(user => user.email === email && user.password === password);
+
+        if (user) {
+          // Сохраняем текущего пользователя в SessionStorage (чтобы не хранить долго)
+          sessionStorage.setItem('currentUser', JSON.stringify(user));
+
+          alert('Вход выполнен успешно!');
+          window.location.href = 'dashboard.html'; // Перенаправляем в личный кабинет
+        } else {
+          showError('Неверный email или пароль!');
+        }
+      });
+
+      function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.classList.remove('visually-hidden');
+      }
+    });
+  </script>
+
+
 </body>
 </html>
