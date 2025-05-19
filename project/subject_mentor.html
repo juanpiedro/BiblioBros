@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BiblioBros – Subject (Mentor)</title>
+
+    <!-- 1) Bootstrap 5.3 CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-…" crossorigin="anonymous" />
+    <!-- 2) Tu CSS personalizado -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body class="d-flex flex-column min-vh-100 mentor-theme">
+
+    <!-- NAVBAR (igual en todas las pestañas) -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">BiblioBros as Mentor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="faculty.html">Faculties</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chat.html">Chat</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="container py-5 flex-grow-1">
+
+        <!-- Subject Title -->
+        <section class="text-center mb-5">
+            <h2 class="section-title">Algebra I</h2>
+        </section>
+
+        <!-- Your Introductory Message -->
+        <section class="mb-5">
+            <h3 class="mb-3">Your Introductory Message</h3>
+            <p>
+                I can help you understand algebra with practical examples and focus on
+                problem-solving strategies.
+            </p>
+        </section>
+
+        <!-- Requests Received -->
+        <section class="mb-5">
+            <h3 class="mb-3">Requests Received</h3>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Anna Rossi</strong> — "Hi, I need help with linear equations."
+                    </div>
+                    <div>
+                        <!-- btn-secondary = orange -->
+                        <button class="btn btn-secondary btn-sm me-2">Accept</button>
+                        <button class="btn btn-primary btn-sm">Reject</button>
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Marco De Luca</strong> — "Can you explain matrices?"
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary btn-sm me-2">Accept</button>
+                        <button class="btn btn-primary btn-sm">Reject</button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Active Chats -->
+        <section class="mb-5">
+            <h3 class="mb-3">Active Chats</h3>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Chat with Anna Rossi
+                    <!-- btn-primary = navy -->
+                    <a href="chat.html" class="btn btn-primary btn-sm">Open Chat</a>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Chat with Marco De Luca
+                    <a href="chat.html" class="btn btn-primary btn-sm">Open Chat</a>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="mb-1">Contact: contact@bibliobros.com</p>
+        <p class="mb-0">Developed by: [Your Name] and the BiblioBros team</p>
+    </footer>
+
+    <!-- 3) Bootstrap 5.3 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-…"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

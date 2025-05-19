@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BiblioBros – Home</title>
+
+    <!-- Bootstrap 5.3 CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-…" crossorigin="anonymous" />
+    <!-- Tu CSS personalizado -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- NAVBAR: idéntica en todas las páginas -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <!-- Logo + texto de marca -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/img/logo.png" alt="BiblioBros Logo" class="site-logo">
+                <span class="ms-3">BiblioBros</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faculty.html">Faculties</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chat.html">Chat</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="container text-center py-5">
+        <!-- Botones principales -->
+        <section class="mb-5">
+            <a href="login.html" class="btn btn-primary btn-lg me-3">Login</a>
+            <a href="register.html" class="btn btn-secondary btn-lg">Register</a>
+        </section>
+
+        <!-- Descripción -->
+        <section>
+            <h2 class="section-title mx-auto">What are we?</h2>
+            <p>An academic mentoring platform for university students.</p>
+            <p>Connect with mentors, solve your doubts, and learn from your peers.</p>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto">
+        <!-- Logo centrado -->
+        <div class="text-center ">
+          <img src="assets/img/logo.png" alt="BiblioBros Logo" class="footer-logo">
+        </div>
+        <p>Contact: contact@bibliobros.com</p>
+        <p>Developed by: …</p>
+      </footer>
+      
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-…"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

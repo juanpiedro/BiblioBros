@@ -1,0 +1,331 @@
+/* ==========================================================================
+   1. FONTS
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* ==========================================================================
+   2. COLOR VARIABLES
+   ========================================================================== */
+:root {
+  --color-bg: #fffdf5;
+  /* General background */
+  --color-primary: #0C1E3C;
+  /* Navy Blue (used in navbar, primary buttons) */
+  --color-secondary: #F57C00;
+  /* Vibrant Orange (used in secondary buttons) */
+  --color-accent: #E6E8EB;
+  /* Light gray (used as subtle accents) */
+  --color-text: #1A1A1A;
+  /* Main text color */
+}
+
+/* ==========================================================================
+   3. GLOBAL RESET & BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-bg);
+  /* fallback color */
+  background-image: url("../img/background.png");
+  background-repeat: repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+main {
+  flex: 1 0 auto;
+  /* Push footer to bottom */
+}
+
+/* ==========================================================================
+   4. NAVBAR
+   ========================================================================== */
+.navbar {
+  background-color: var(--color-primary) !important;
+  transition: top 0.3s ease;
+  padding: 1rem 0;
+}
+
+/* Logo in the navbar */
+.site-logo {
+  height: 80px;
+  width: auto;
+  display: block;
+}
+
+/* Navbar brand section */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-left: 1rem;
+}
+
+/* Brand name next to the logo */
+.navbar-brand span {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Navbar links */
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: var(--color-accent) !important;
+}
+
+/* ==========================================================================
+   5. FOOTER
+   ========================================================================== */
+footer {
+  flex-shrink: 0;
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+/* Logo in the footer */
+.footer-logo {
+  height: 70px;
+  width: auto;
+  margin-bottom: 1rem;
+}
+
+/* Footer text */
+footer p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin: 0.4rem 0;
+}
+
+/* ==========================================================================
+   6. HERO SECTION
+   ========================================================================== */
+.hero-section {
+  min-height: 85vh;
+  background: linear-gradient(to bottom right, var(--color-primary), #0d294e);
+  background-image: url('assets/img/hero-bg.svg');
+  /* Educational illustration */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 4rem 2rem;
+}
+
+/* ==========================================================================
+   7. SECTION TITLES
+   ========================================================================== */
+.section-title {
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 0.5rem;
+  margin: 1.5rem 0 1rem;
+  color: var(--color-primary);
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   8. CARDS
+   ========================================================================== */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  transition: all 0.3s ease;
+  border-left: 5px solid var(--color-secondary);
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+   9. BUTTONS
+   ========================================================================== */
+button,
+.btn {
+  margin-top: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  border-radius: 0.4rem;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  font-weight: 500;
+}
+
+/* Primary button (navy) */
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #08132a !important;
+  border-color: #08132a !important;
+}
+
+/* Secondary button (orange) */
+.btn-secondary {
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color: #fff !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: #d45300 !important;
+  border-color: #d45300 !important;
+}
+
+/* Accent-style button (light gray) */
+.btn-warning {
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-text) !important;
+}
+
+.btn-warning:hover {
+  filter: brightness(0.9);
+}
+
+/* ==========================================================================
+   10. FORMS (Login/Register Cards)
+   ========================================================================== */
+.form-card {
+  max-width: 400px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+.form-card:hover {
+  transform: none !important;
+}
+
+/* ==========================================================================
+   11. CHAT MODULE STYLING
+   ========================================================================== */
+
+/* Active chat list (WhatsApp-style bubble) */
+.active-chats .chat-item {
+  background-color: #e1ffc7;
+  border-radius: 20px;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s;
+}
+
+.active-chats .chat-item:hover {
+  background-color: #d4fcb8;
+}
+
+.active-chats .chat-item .chat-info {
+  flex: 1;
+}
+
+.active-chats .chat-item .chat-name {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.active-chats .chat-item .chat-preview {
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.active-chats .chat-item .chat-time {
+  font-size: 0.75rem;
+  color: #999;
+  margin-left: 0.5rem;
+}
+
+/* Sidebar list item for chats */
+.chat-list-item {
+  cursor: pointer;
+  transition: background-color .15s ease;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+.chat-list-item.active,
+.chat-list-item:hover {
+  background-color: rgba(5, 30, 60, 0.1);
+}
+
+/* Chat window styling */
+.chat-header {
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chat-history {
+  background: #fafafa;
+  padding: 1rem;
+  border-radius: 8px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.chat-history .text-start p {
+  display: inline-block;
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem 0.5rem 0.5rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.chat-history .text-end p {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem 0.5rem 0 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   12. THEME VARIATIONS (Orange navbar/footer)
+   ========================================================================== */
+body.mentor-theme .navbar,
+body.mentor-theme footer {
+  background-color: var(--color-secondary) !important;
+}
+
+/* Extra large button for call-to-action */
+.btn-xl {
+  font-size: 1.5rem;
+  padding: 1.25rem 3rem;
+  border-radius: 0.6rem;
+}
