@@ -6,7 +6,7 @@
  * Authenticated via session. MySQL queries adapted from PostgreSQL.
  */
 
-require_once __DIR__ . '/auth_guard.php'; // opcional: inicia sesión y $pdo para MySQL
+require_once __DIR__ . '/../auth_guard.php'; // opcional: inicia sesión y $pdo para MySQL
 
 header('Content-Type: application/json');
 
@@ -23,13 +23,15 @@ try {
     // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->prepare("
-        SELECT r.score, r.comment
-          FROM ratings r
-          JOIN chats c ON c.id = r.chat_id
-          JOIN requests req ON req.id = c.request_id
-         WHERE req.mentor_id = :mentor_id
-         ORDER BY r.id DESC
-    ");
+    SELECT r.score, r.comment, u.fullname AS mentee_name
+      FROM ratings r
+      JOIN chats c ON c.id = r.chat_id
+      JOIN requests req ON req.id = c.request_id
+      JOIN users u ON u.id = req.mentee_id
+     WHERE req.mentor_id = :mentor_id
+     ORDER BY r.id DESC
+");
+
     $stmt->execute(['mentor_id' => $mentor_id]);
     $ratings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
