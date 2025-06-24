@@ -84,14 +84,6 @@ $mentors = $stmt3->fetchAll();
       <?php endif; ?>
     </section>
 
-    <!-- Download button -->
-    <div class="mb-4">
-      <a href="php/subjects_view.php?faculty_id=<?= $facultyId ?>&download=html" class="btn btn-outline-secondary">
-        📥 Download subjects HTML
-      </a>
-
-    </div>
-
 
     <!-- Subjects tab -->
     <section id="subjects" class="mb-5">

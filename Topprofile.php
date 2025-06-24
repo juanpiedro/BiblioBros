@@ -1,15 +1,7 @@
 <?php
-/*
- * Topprofile.php
- *
- * Single-entry profile page: shows and edits profile, displays subjects & roles,
- * closed conversations, and ratings (via AJAX).
- */
-
 require_once __DIR__ . '/auth_guard.php';
 $userId = (int) $_SESSION['user_id'];
 
-// Handle form submission (update profile)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fullname = trim($_POST['fullname'] ?? '');
     $email = trim($_POST['email'] ?? '');
@@ -36,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Fetch user info
 $stmt = $pdo->prepare("
     SELECT u.fullname, u.email, u.public_description, uni.name AS university_name
     FROM users u
@@ -51,7 +42,6 @@ if (!$user) {
     exit;
 }
 
-// Subject-role associations
 $stmt2 = $pdo->prepare("
     SELECT usr.role, s.name AS subject_name, f.name AS faculty_name, uni.name AS university_name
     FROM user_subject_role usr
@@ -64,7 +54,6 @@ $stmt2 = $pdo->prepare("
 $stmt2->execute(['uid' => $userId]);
 $assocs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-// Closed conversations (mentee)
 $stmt3 = $pdo->prepare("
     SELECT c.id AS chat_id, u.fullname AS mentor_name, s.name AS subject_name,
            DATE_FORMAT(c.created_at, '%d %b %Y %H:%i') AS closed_at
@@ -79,7 +68,6 @@ $stmt3 = $pdo->prepare("
 $stmt3->execute(['uid' => $userId]);
 $closedAsMentee = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
-// Closed conversations (mentor)
 $stmt4 = $pdo->prepare("
     SELECT c.id AS chat_id, u.fullname AS mentee_name, s.name AS subject_name,
            DATE_FORMAT(c.created_at, '%d %b %Y %H:%i') AS closed_at
@@ -93,6 +81,37 @@ $stmt4 = $pdo->prepare("
 ");
 $stmt4->execute(['uid' => $userId]);
 $closedAsMentor = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+
+// Chats abiertos como mentee
+$stmt5 = $pdo->prepare("
+    SELECT c.id AS chat_id, u.fullname AS mentor_name, s.name AS subject_name,
+           DATE_FORMAT(c.created_at, '%d %b %Y %H:%i') AS opened_at
+    FROM chats c
+    JOIN requests r ON r.id = c.request_id
+    JOIN users u ON u.id = r.mentor_id
+    JOIN subjects s ON s.id = r.subject_id
+    WHERE r.mentee_id = :uid
+      AND c.active = TRUE
+    ORDER BY c.created_at DESC
+");
+$stmt5->execute(['uid' => $userId]);
+$openAsMentee = $stmt5->fetchAll(PDO::FETCH_ASSOC);
+
+// Chats abiertos como mentor
+$stmt6 = $pdo->prepare("
+    SELECT c.id AS chat_id, u.fullname AS mentee_name, s.name AS subject_name,
+           DATE_FORMAT(c.created_at, '%d %b %Y %H:%i') AS opened_at
+    FROM chats c
+    JOIN requests r ON r.id = c.request_id
+    JOIN users u ON u.id = r.mentee_id
+    JOIN subjects s ON s.id = r.subject_id
+    WHERE r.mentor_id = :uid
+      AND c.active = TRUE
+    ORDER BY c.created_at DESC
+");
+$stmt6->execute(['uid' => $userId]);
+$openAsMentor = $stmt6->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,6 +121,7 @@ $closedAsMentor = $stmt4->fetchAll(PDO::FETCH_ASSOC);
   <title>BiblioBros – Profile</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css"/>
+  <script>window.__USER_ID__ = <?= $userId ?>;</script>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <div id="navbar-placeholder"></div>
@@ -172,15 +192,85 @@ $closedAsMentor = $stmt4->fetchAll(PDO::FETCH_ASSOC);
   </section>
 
   <section class="mt-5 mx-auto" style="max-width:800px;">
-    <h3 class="section-title">Your Ratings</h3>
-    <div class="card">
-      <div class="card-body">
-        <div id="ratings-app">
-          <!-- Vue component mounts here -->
-        </div>
-      </div>
+  <h3 class="section-title">Your Ratings</h3>
+  <div class="card">
+    <div class="card-body">
+
+      <?php
+      $stmt = $pdo->prepare("
+          SELECT r.score, r.comment, u.fullname AS mentee_name
+            FROM ratings r
+            JOIN chats c ON c.id = r.chat_id
+            JOIN requests req ON req.id = c.request_id
+            JOIN users u ON u.id = req.mentee_id
+           WHERE req.mentor_id = :uid
+           ORDER BY r.id DESC
+      ");
+      $stmt->execute(['uid' => $userId]);
+      $ratings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      ?>
+
+      <?php if ($ratings): ?>
+        <?php
+          $count = count($ratings);
+          $avg = array_sum(array_column($ratings, 'score')) / $count;
+        ?>
+        <p><strong>Average Rating:</strong> <?= number_format($avg, 1) ?>/5 (<?= $count ?> ratings)</p>
+        <ul class="list-group">
+          <?php foreach ($ratings as $r): ?>
+            <li class="list-group-item">
+              <strong>Score:</strong> <?= htmlspecialchars($r['score']) ?> / 5<br>
+              <strong>Comment:</strong> <?= nl2br(htmlspecialchars($r['comment'])) ?><br>
+              <small class="text-muted">By <?= htmlspecialchars($r['mentee_name']) ?></small>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      <?php else: ?>
+        <p class="text-muted">You haven’t received any ratings yet.</p>
+      <?php endif; ?>
+
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="mt-5 mx-auto" style="max-width:800px;">
+  <h3 class="section-title">Your Open Conversations</h3>
+
+  <?php if ($openAsMentee): ?>
+    <h5>As Mentee</h5>
+    <ul class="list-group mb-4">
+      <?php foreach ($openAsMentee as $c): ?>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong><?= htmlspecialchars($c['subject_name']) ?></strong> with <?= htmlspecialchars($c['mentor_name']) ?>
+            <span class="text-muted small">— opened at <?= $c['opened_at'] ?></span>
+          </div>
+          <a href="Topchat_mentee.php?chat_id=<?= $c['chat_id'] ?>" class="btn btn-primary btn-sm">Go to Chat</a>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; ?>
+
+  <?php if ($openAsMentor): ?>
+    <h5>As Mentor</h5>
+    <ul class="list-group">
+      <?php foreach ($openAsMentor as $c): ?>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong><?= htmlspecialchars($c['subject_name']) ?></strong> with <?= htmlspecialchars($c['mentee_name']) ?>
+            <span class="text-muted small">— opened at <?= $c['opened_at'] ?></span>
+          </div>
+          <a href="Topchat_mentor.php?chat_id=<?= $c['chat_id'] ?>" class="btn btn-primary btn-sm">Go to Chat</a>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; ?>
+
+  <?php if (!$openAsMentee && !$openAsMentor): ?>
+    <p class="text-muted text-center">No open conversations at the moment.</p>
+  <?php endif; ?>
+</section>
+
 
   <section class="mt-5 mx-auto" style="max-width:800px;">
     <h3 class="section-title">Your Closed Conversations</h3>
@@ -221,9 +311,7 @@ $closedAsMentor = $stmt4->fetchAll(PDO::FETCH_ASSOC);
 <div id="modal-container"></div>
 <div id="footer-placeholder"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" defer></script>
-<script src="assets/js/ratings-vue.js" defer></script>
-<script src="assets/js/main.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

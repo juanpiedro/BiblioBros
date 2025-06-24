@@ -46,11 +46,12 @@ try {
     <div class="row gx-4">
 
       <aside class="col-md-4">
-        <h2 class="section-title">Chats</h2>
-        <ul id="chat-list" class="list-group">
-          <li class="list-group-item">Loading chats...</li>
-        </ul>
-      </aside>
+  <h2 class="section-title">Chats</h2>
+  <ul id="chat-list" class="list-group" data-user-id="<?= $_SESSION['user_id'] ?>">
+    <li class="list-group-item">Loading chats...</li>
+  </ul>
+</aside>
+
 
       <section class="col-md-8 d-flex flex-column" id="chat-window" style="display: none">
         <div class="chat-header mb-3 d-flex justify-content-between align-items-center">
