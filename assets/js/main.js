@@ -64,6 +64,7 @@ function checkSessionAndInit() {
       initProfile(status);
 
 
+
       if (window.location.pathname.endsWith("Topsubject_mentor.php")) {
         const params = new URLSearchParams(window.location.search);
         const subjectId = params.get("subject_id");
@@ -189,75 +190,58 @@ function checkSessionAndInit() {
         const chatForm = document.getElementById("chat-form");
         const messageInput = document.getElementById("message-input");
 
-        // Sidebar only for mentee
-        if (window.location.pathname.endsWith("Topchat_mentee.php")) {
-          const chatList = document.getElementById("chat-list");
+        // Sidebar for Topchat_mentor.php and Topchat_mentee.php
+if (
+  ["Topchat_mentee.php", "Topchat_mentor.php"].some(p =>
+    window.location.pathname.endsWith(p)
+  )
+) {
+  const chatList = document.getElementById("chat-list");
+  const currentUserId = Number(chatList.dataset.userId);
 
-          fetch("php/chat_loader_mentee.php", { credentials: "include" })
-            .then(res => res.ok ? res.json() : Promise.reject(res.status))
-            .then(data => {
-              chatList.innerHTML = "";
-              const allChats = [...data.active_chats, ...data.closed_chats];
+  if (isNaN(currentUserId)) {
+    console.error("Invalid or missing data-user-id in #chat-list");
+    chatList.innerHTML = '<li class="list-group-item text-danger">User not authenticated.</li>';
+  } else {
+    fetch("php/chat_loader_all.php", { credentials: "include" })
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(data => {
+        chatList.innerHTML = "";
+        const allChats = [...data.active_chats, ...data.closed_chats];
 
-              if (!allChats.length) {
-                chatList.innerHTML = '<li class="list-group-item">No chats yet.</li>';
-                return;
-              }
+        if (!allChats.length) {
+          chatList.innerHTML = '<li class="list-group-item">No chats yet.</li>';
+          return;
+        }
 
-              allChats.forEach(c => {
-                const li = document.createElement("li");
-                li.className = "list-group-item list-group-item-action";
-                li.innerHTML = `
-            <strong>${c.mentor_name}</strong>
+        allChats.forEach(c => {
+          const isMentor = Number(c.mentor_id) === currentUserId;
+          const nameToShow = isMentor ? c.mentee_name : c.mentor_name;
+          const redirectTo = isMentor
+            ? `Topchat_mentor.php?chat_id=${c.chat_id}`
+            : `Topchat_mentee.php?chat_id=${c.chat_id}`;
+
+          const li = document.createElement("li");
+          li.className = "list-group-item list-group-item-action";
+          li.innerHTML = `
+            <strong>${nameToShow}</strong>
             <small class="text-muted">(${c.subject})</small>
-            ${c.active ? "" : '<span class="badge bg-secondary ms-2">closed</span>'}
+            ${c.active === "1" ? "" : '<span class="badge bg-secondary ms-2">closed</span>'}
           `;
-                li.addEventListener("click", () => {
-                  window.location.href = `Topchat_mentee.php?chat_id=${c.chat_id}`;
-                });
-                chatList.appendChild(li);
-              });
-            })
-            .catch(err => {
-              chatList.innerHTML = '<li class="list-group-item text-danger">Error loading chats.</li>';
-              console.error("chat_loader_mentee error:", err);
-            });
-        }
+          li.addEventListener("click", () => {
+            window.location.href = redirectTo;
+          });
+          chatList.appendChild(li);
+        });
+      })
+      .catch(err => {
+        chatList.innerHTML = '<li class="list-group-item text-danger">Error loading chats.</li>';
+        console.error("chat_loader_all error:", err);
+      });
+  }
+}
 
-        // Sidebar for mentor
-        if (window.location.pathname.endsWith("Topchat_mentor.php")) {
-          const chatList = document.getElementById("chat-list");
 
-          fetch("php/chat_loader_mentor.php", { credentials: "include" })
-            .then(res => res.ok ? res.json() : Promise.reject(res.status))
-            .then(data => {
-              chatList.innerHTML = "";
-              const allChats = [...data.active_chats, ...data.closed_chats];
-
-              if (!allChats.length) {
-                chatList.innerHTML = '<li class="list-group-item">No chats yet.</li>';
-                return;
-              }
-
-              allChats.forEach(c => {
-                const li = document.createElement("li");
-                li.className = "list-group-item list-group-item-action";
-                li.innerHTML = `
-          <strong>${c.mentee_name}</strong>
-          <small class="text-muted">(${c.subject})</small>
-          ${c.active ? "" : '<span class="badge bg-secondary ms-2">closed</span>'}
-        `;
-                li.addEventListener("click", () => {
-                  window.location.href = `Topchat_mentor.php?chat_id=${c.chat_id}`;
-                });
-                chatList.appendChild(li);
-              });
-            })
-            .catch(err => {
-              chatList.innerHTML = '<li class="list-group-item text-danger">Error loading chats.</li>';
-              console.error("chat_loader_mentor error:", err);
-            });
-        }
 
         // Load chat messages
         function loadMessages() {
